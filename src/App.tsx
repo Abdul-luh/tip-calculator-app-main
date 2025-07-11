@@ -18,7 +18,8 @@ export default function App() {
     watch,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: { bill: 0, tip: 0, people: 1 },
+    mode: "onChange",
+    defaultValues: { bill: 0, tip: 0, people: 0 },
   });
 
   const watchedBill = watch("bill");
@@ -44,17 +45,29 @@ export default function App() {
   };
 
   return (
-    <main className="min-h-screen bg-grey-200 flex items-center justify-center p-6">
-      <div className="bg-white rounded-2xl shadow-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
+    <main className="min-h-screen bg-grey-200 flex flex-col items-center justify-end">
+      <p className="font-space font-bold text-grey-500 text-center text-2xl tracking-widest uppercase my-12">
+        spli
+        <br />
+        tter
+      </p>
+
+      <div className="bg-white rounded-t-3xl md:rounded-3xl shadow-lg p-8 grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
         {/* Form */}
         <form className="space-y-6">
           <div>
-            <Label
-              className="text-sm text-cyan-dark uppercase tracking-wide"
-              htmlFor="bill"
-            >
-              Bill
-            </Label>
+            <div className="flex justify-between">
+              <Label
+                className="text-sm text-cyan-dark uppercase tracking-wide"
+                htmlFor="bill"
+              >
+                Bill
+              </Label>
+
+              {errors.bill && (
+                <p className="text-red-500">{errors.bill.message}</p>
+              )}
+            </div>
             <div className="relative mt-1 p-2">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2 text-green-900 text-xl">
                 $
@@ -65,19 +78,29 @@ export default function App() {
                 step="0.01"
                 placeholder="0.00"
                 {...register("bill", {
-                  min: { value: 0.01, message: "Must be > 0" },
+                  min: { value: 0.01, message: "Can't be zero" },
                   valueAsNumber: true,
                 })}
-                className="pl-10 text-right font-bold text-2xl bg-grey-200 border-none rounded-lg"
+                className={`pl-10 text-right font-bold text-2xl bg-grey-200/30 rounded-sm focus:border-2 ${
+                  errors.bill
+                    ? "border-2 border-red-500"
+                    : "focus:border-green-400"
+                }`}
               />
             </div>
           </div>
 
           <div>
-            <Label className="text-sm text-cyan-dark uppercase tracking-wide">
-              Select Tip %
-            </Label>
-            <div className="grid grid-cols-3 sm:grid-cols-3 gap-4 mt-2">
+            <div className="flex justify-between">
+              <Label className="text-sm text-cyan-dark uppercase tracking-wide">
+                Select Tip %
+              </Label>
+
+              {errors.tip && (
+                <p className="text-red-500">{errors.tip.message}</p>
+              )}
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mt-2">
               {[5, 10, 15, 25, 50].map((percent) => (
                 <button
                   key={percent}
@@ -99,9 +122,13 @@ export default function App() {
               <Input
                 type="number"
                 placeholder="Custom"
-                className="rounded-lg h-13 p-3 text-center font-bold text-2xl bg-gray-100 border-none "
+                className={`h-13 p-3 text-center font-bold text-2xl bg-grey-200/30 rounded-sm focus:border-2 ${
+                  errors.tip
+                    ? "border-2 border-red-500"
+                    : "focus:border-green-400"
+                }`}
                 {...register("tip", {
-                  min: { value: 0, message: "Min 0%" },
+                  min: { value: 0, message: "Cannot be negative" },
                   valueAsNumber: true,
                 })}
                 onFocus={() => setSelectedTip(null)}
@@ -110,12 +137,17 @@ export default function App() {
           </div>
 
           <div>
-            <Label
-              className="text-sm text-cyan-dark uppercase tracking-wide"
-              htmlFor="people"
-            >
-              Number of People
-            </Label>
+            <div className="flex justify-between">
+              <Label
+                className="text-sm text-cyan-dark uppercase tracking-wide"
+                htmlFor="people"
+              >
+                Number of People
+              </Label>
+              {errors.people && (
+                <p className="text-red-500">{errors.people.message}</p>
+              )}
+            </div>
             <div className="relative mt-1">
               <span className="absolute left-4 top-1/2 transform -translate-y-1/2">
                 👤
@@ -127,10 +159,14 @@ export default function App() {
                 min={1}
                 placeholder="0"
                 {...register("people", {
-                  min: { value: 1, message: "Must be > 0" },
+                  min: { value: 1, message: "Can't be zero" },
                   valueAsNumber: true,
                 })}
-                className="pl-10 text-right font-bold text-xl bg-grey-200 rounded-lg border-none"
+                className={`pl-10 text-right font-bold text-xl bg-grey-200/30 rounded-sm focus:border-2 ${
+                  errors.people
+                    ? "border-2 border-red-500"
+                    : "focus:border-green-400"
+                }`}
               />
             </div>
           </div>
