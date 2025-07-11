@@ -97,9 +97,9 @@ export default function App() {
                 </button>
               ))}
               <Input
-                type="text"
+                type="number"
                 placeholder="Custom"
-                className="rounded-lg p-3 text-center font-bold text-2xl bg-gray-100 border-none "
+                className="rounded-lg h-13 p-3 text-center font-bold text-2xl bg-gray-100 border-none "
                 {...register("tip", {
                   min: { value: 0, message: "Min 0%" },
                   valueAsNumber: true,
