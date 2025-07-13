@@ -45,7 +45,7 @@ export default function App() {
   };
 
   return (
-    <main className="min-h-screen bg-grey-200 flex flex-col items-center justify-end">
+    <main className="min-h-screen bg-grey-200 flex flex-col items-center justify-end md:justify-center">
       <p className="font-space font-bold text-grey-500 text-center text-2xl tracking-widest uppercase my-12">
         spli
         <br />
@@ -84,7 +84,7 @@ export default function App() {
                 className={`pl-10 text-right font-bold text-2xl bg-grey-200/30 rounded-sm focus:border-2 ${
                   errors.bill
                     ? "border-2 border-red-500"
-                    : "focus:border-green-400"
+                    : "focus:border-green-400 hover:border-green-400"
                 }`}
               />
             </div>
@@ -125,7 +125,7 @@ export default function App() {
                 className={`h-13 p-3 text-center font-bold text-2xl bg-grey-200/30 rounded-sm focus:border-2 ${
                   errors.tip
                     ? "border-2 border-red-500"
-                    : "focus:border-green-400"
+                    : "focus:border-green-400 hover:border-green-400"
                 }`}
                 {...register("tip", {
                   min: { value: 0, message: "Cannot be negative" },
@@ -165,7 +165,7 @@ export default function App() {
                 className={`pl-10 text-right font-bold text-xl bg-grey-200/30 rounded-sm focus:border-2 ${
                   errors.people
                     ? "border-2 border-red-500"
-                    : "focus:border-green-400"
+                    : "focus:border-green-400 hover:border-green-400"
                 }`}
               />
             </div>
